@@ -3,7 +3,7 @@ new Vue({
     data() {
         return {
             notes: JSON.parse(localStorage.getItem('notes')) || [],
-            selectedId: null
+            selectedId: localStorage.getItem('selected-id') || null
         };
     },
     computed: {
@@ -27,6 +27,9 @@ new Vue({
             handler: 'saveNotes',
             // We need this to watch each note's properties inside the array
             deep: true
+        },
+        selectedId(val) {
+            localStorage.setItem('selected-id', val);
         }
     },
     methods: {
