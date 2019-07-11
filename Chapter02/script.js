@@ -2,7 +2,7 @@ new Vue({
     el: '#notebook',
     data() {
         return {
-            notes: [],
+            notes: JSON.parse(localStorage.getItem('notes')) || [],
             selectedId: null
         };
     },
@@ -18,7 +18,17 @@ new Vue({
             return this.notes.find(note => note.id === this.selectedId);
         }
     },
-    watch: {},
+    watch: {
+        // this don't work with some notes array modification
+        // notes: 'saveNotes'
+
+        notes: {
+            // method
+            handler: 'saveNotes',
+            // We need this to watch each note's properties inside the array
+            deep: true
+        }
+    },
     methods: {
         addNote() {
             const time = Date.now();
@@ -37,6 +47,10 @@ new Vue({
         },
         selectNote(note) {
             this.selectedId = note.id;
+        },
+        saveNotes() {
+            localStorage.setItem('notes', JSON.stringify(this.notes));
+            console.log('Notes saved!', new Date());
         }
     },
     created() {}
