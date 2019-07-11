@@ -54,6 +54,21 @@ new Vue({
         saveNotes() {
             localStorage.setItem('notes', JSON.stringify(this.notes));
             console.log('Notes saved!', new Date());
+        },
+        removeNote() {
+            if (this.selectedNote && confirm('Delete the note?')) {
+                // remove note from array
+                const idx = this.notes.indexOf(this.selectedNote);
+                if (idx !== -1) {
+                    this.notes.splice(idx, 1);
+                }
+            }
+        },
+        favoriteNote() {
+            this.selectedNote.favorite = !this.selectedNote.favorite;
+            // with XOR
+            // this.selectedNote.favorite = this.selectedNote.favorite ^ true
+            // this.selectedNote.favorite ^= true
         }
     },
     created() {}
