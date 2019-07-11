@@ -120,6 +120,7 @@ textarea {
     box-sizing: border-box;
     margin: 0 4px;
     font-family: monospace;
+    height: 800px;
 }
 
 textarea,
